@@ -1,0 +1,15 @@
+# Dawn-derived theme files keep upstream formatting. Remove an entry (or add a
+# negated pattern) once a directory is owned and reformatted by this repo.
+assets/
+config/
+layout/
+locales/
+sections/
+snippets/
+templates/
+LICENSE.md
+package-lock.json
+data/
+
+# Local-only planning docs (git-ignored)
+agents-doc/
