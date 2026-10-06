@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "theme-check": "shopify theme check",
-    "test": "node --test"
+    "test": "node --test",
+    "smoke": "node scripts/smoke.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
