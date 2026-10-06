@@ -12,6 +12,10 @@ jobs:
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
+    # The action reports results through a check run, which needs checks: write.
+    permissions:
+      contents: read
+      checks: write
     steps:
       - uses: actions/checkout@v7
       - uses: shopify/theme-check-action@v2
