@@ -1,0 +1,37 @@
+[
+  {
+    "handle": "washed",
+    "title": "Washed",
+    "color": "#5B9BD5",
+    "description": "Fruit is removed before drying, which gives a clean, bright cup.",
+    "synonyms": ["Fully Washed", "Wet", "Wet Process", "Washed Process"]
+  },
+  {
+    "handle": "natural",
+    "title": "Natural",
+    "color": "#C0504D",
+    "description": "Dried whole in the cherry, which gives a fruity, heavy-bodied cup.",
+    "synonyms": ["Dry", "Natural/Dry", "Sun Dried", "Natural Process"]
+  },
+  {
+    "handle": "honey",
+    "title": "Honey",
+    "color": "#E3A72F",
+    "description": "Dried with part of the fruit mucilage left on, between washed and natural.",
+    "synonyms": ["Pulped Natural", "Honey Process", "Yellow Honey", "Red Honey"]
+  },
+  {
+    "handle": "anaerobic",
+    "title": "Anaerobic",
+    "color": "#7E57C2",
+    "description": "Fermented in a sealed, oxygen-free tank before drying.",
+    "synonyms": ["Anaerobic Fermentation", "Anaerobic Natural", "Anaerobic Washed"]
+  },
+  {
+    "handle": "wet-hulled",
+    "title": "Wet-hulled",
+    "color": "#6B8E23",
+    "description": "Parchment is hulled while the bean is still wet, typical for Indonesia.",
+    "synonyms": ["Giling Basah", "Semi-washed", "Wet Hulled Process"]
+  }
+]
