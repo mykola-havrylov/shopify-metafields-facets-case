@@ -14,7 +14,9 @@
     "format:check": "prettier --check .",
     "theme-check": "shopify theme check",
     "test": "node --test",
-    "smoke": "node scripts/smoke.js"
+    "smoke": "node scripts/smoke.js",
+    "definitions": "node scripts/create-definitions.js",
+    "definitions:dry-run": "node scripts/create-definitions.js --dry-run"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

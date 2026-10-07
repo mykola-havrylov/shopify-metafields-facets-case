@@ -1,0 +1,46 @@
+[
+  {
+    "type": "roaster",
+    "name": "Roaster",
+    "description": "A coffee roaster. Referenced by products and rendered as its own Online Store page.",
+    "displayNameKey": "title",
+    "access": { "storefront": "PUBLIC_READ" },
+    "capabilities": {
+      "publishable": { "enabled": true },
+      "renderable": { "enabled": true, "data": { "metaTitleKey": "title", "metaDescriptionKey": "description" } },
+      "onlineStore": { "enabled": true, "data": { "urlHandle": "roasters" } }
+    },
+    "fields": [
+      { "key": "title", "name": "Title", "type": "single_line_text_field", "required": true },
+      { "key": "country", "name": "Country", "type": "single_line_text_field" },
+      {
+        "key": "founded_year",
+        "name": "Founded year",
+        "type": "number_integer",
+        "validations": [
+          { "name": "min", "value": "1800" },
+          { "name": "max", "value": "2100" }
+        ]
+      },
+      { "key": "description", "name": "Description", "type": "multi_line_text_field" },
+      {
+        "key": "logo",
+        "name": "Logo",
+        "type": "file_reference",
+        "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }]
+      }
+    ]
+  },
+  {
+    "type": "process_method",
+    "name": "Process method",
+    "description": "Green coffee processing method. `color` drives the visual swatch facet; `title` is the naming field.",
+    "displayNameKey": "title",
+    "access": { "storefront": "PUBLIC_READ" },
+    "fields": [
+      { "key": "title", "name": "Title", "type": "single_line_text_field", "required": true },
+      { "key": "color", "name": "Color", "type": "color", "required": true },
+      { "key": "description", "name": "Description", "type": "multi_line_text_field" }
+    ]
+  }
+]
