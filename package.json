@@ -25,7 +25,10 @@
     "seed:catalog:pilot": "node scripts/seed-catalog.js --pilot",
     "seed:catalog:dry-run": "node scripts/seed-catalog.js --dry-run",
     "verify": "node scripts/verify.js",
-    "verify:pilot": "node scripts/verify.js --pilot"
+    "verify:pilot": "node scripts/verify.js --pilot",
+    "generate-image-prompts": "node scripts/generate-image-prompts.js",
+    "images:check": "node scripts/check-images.js",
+    "upload-images": "node scripts/upload-images.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
