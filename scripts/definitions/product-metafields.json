@@ -1,0 +1,110 @@
+{
+  "namespace": "coffee",
+  "ownerType": "PRODUCT",
+  "definitions": [
+    {
+      "key": "roaster",
+      "name": "Roaster",
+      "type": "metaobject_reference",
+      "description": "Roaster of this coffee.",
+      "filterable": true,
+      "validations": [{ "name": "metaobject_definition_id", "metaobjectType": "roaster" }]
+    },
+    {
+      "key": "origin",
+      "name": "Origin",
+      "type": "list.single_line_text_field",
+      "description": "Country of origin; blends can list several.",
+      "filterable": true,
+      "validations": [{ "name": "list.min", "value": "1" }]
+    },
+    {
+      "key": "process",
+      "name": "Process",
+      "type": "metaobject_reference",
+      "description": "Green coffee processing method (visual swatch facet).",
+      "filterable": true,
+      "validations": [{ "name": "metaobject_definition_id", "metaobjectType": "process_method" }]
+    },
+    {
+      "key": "roast_level",
+      "name": "Roast level",
+      "type": "single_line_text_field",
+      "description": "Canonical roast level.",
+      "filterable": true,
+      "validations": [
+        { "name": "choices", "value": "[\"Light\",\"Medium-Light\",\"Medium\",\"Medium-Dark\",\"Dark\"]" }
+      ]
+    },
+    {
+      "key": "cupping_score",
+      "name": "Cupping score",
+      "type": "number_decimal",
+      "description": "SCA cupping score, 0-100.",
+      "filterable": true,
+      "validations": [
+        { "name": "min", "value": "0" },
+        { "name": "max", "value": "100" },
+        { "name": "max_precision", "value": "2" }
+      ]
+    },
+    {
+      "key": "altitude_masl",
+      "name": "Altitude (masl)",
+      "type": "number_integer",
+      "description": "Growing altitude in meters above sea level.",
+      "filterable": true,
+      "validations": [
+        { "name": "min", "value": "0" },
+        { "name": "max", "value": "3000" }
+      ]
+    },
+    {
+      "key": "decaf",
+      "name": "Decaf",
+      "type": "boolean",
+      "description": "Whether the coffee is decaffeinated.",
+      "filterable": true
+    },
+    {
+      "key": "tasting_notes",
+      "name": "Tasting notes",
+      "type": "list.single_line_text_field",
+      "description": "Flavor notes shown as chips on the product page. Not a facet: high cardinality.",
+      "filterable": false,
+      "validations": [
+        { "name": "list.min", "value": "1" },
+        { "name": "list.max", "value": "10" }
+      ]
+    },
+    {
+      "key": "variety",
+      "name": "Variety",
+      "type": "list.single_line_text_field",
+      "description": "Coffee varieties. Not a facet: high-cardinality vocabulary.",
+      "filterable": false,
+      "validations": [
+        { "name": "list.min", "value": "1" },
+        { "name": "list.max", "value": "10" }
+      ]
+    },
+    {
+      "key": "harvest_year",
+      "name": "Harvest year",
+      "type": "number_integer",
+      "description": "Harvest year, product page only.",
+      "filterable": false,
+      "validations": [
+        { "name": "min", "value": "2000" },
+        { "name": "max", "value": "2100" }
+      ]
+    },
+    {
+      "key": "brew_guide",
+      "name": "Brew guide",
+      "type": "rich_text_field",
+      "description": "Brewing recommendations, product page only.",
+      "filterable": false
+    }
+  ]
+}
