@@ -1267,6 +1267,32 @@
     ]
   },
   {
+    "name": "t:settings_schema.coffee.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.coffee.settings.header.content"
+      },
+      {
+        "type": "color",
+        "id": "coffee_roast_scale_color",
+        "label": "t:settings_schema.coffee.settings.roast_scale_color.label",
+        "info": "t:settings_schema.coffee.settings.roast_scale_color.info",
+        "default": "#6b4226"
+      },
+      {
+        "type": "range",
+        "id": "coffee_chip_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "t:settings_schema.coffee.settings.chip_radius.label",
+        "default": 20
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.brand_information.name",
     "settings": [
       {

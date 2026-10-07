@@ -1,0 +1,94 @@
+/* Coffee details on the product page. Tokens come from snippets/coffee-tokens.liquid. */
+:root {
+  --coffee-swatch-size: 1.6rem;
+}
+
+.coffee-specs__heading {
+  margin: 0 0 2rem;
+}
+
+.coffee-specs__list {
+  margin: 0;
+  padding: 0;
+}
+
+.coffee-specs__row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) 1fr;
+  gap: 1rem 2rem;
+  padding: 1.2rem 0;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.12);
+}
+
+.coffee-specs__row:first-child {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
+}
+
+.coffee-specs__term {
+  margin: 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.coffee-specs__value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+  margin: 0;
+}
+
+.coffee-swatch {
+  flex-shrink: 0;
+  width: var(--coffee-swatch-size);
+  height: var(--coffee-swatch-size);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.4);
+  border-radius: 50%;
+  background-color: var(--coffee-swatch-color);
+}
+
+.coffee-roast {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.coffee-roast__step {
+  width: 1.6rem;
+  height: 0.8rem;
+  border: 0.1rem solid var(--coffee-roast-fill);
+  border-radius: 0.2rem;
+}
+
+.coffee-roast__step--filled {
+  background-color: var(--coffee-roast-fill);
+}
+
+.coffee-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.coffee-chips__item {
+  padding: 0.4rem 1.2rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.4);
+  border-radius: var(--coffee-chip-radius);
+  font-size: 1.4rem;
+}
+
+.coffee-specs__brew {
+  margin-top: 3.2rem;
+}
+
+.coffee-specs__subheading {
+  margin: 0 0 1.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .coffee-specs__row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

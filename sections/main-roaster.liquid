@@ -1,0 +1,155 @@
+{{ 'section-main-roaster.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{% render 'coffee-tokens' %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign roaster = metaobject
+  assign title = roaster.title.value
+  assign country = roaster.country.value
+  assign founded_year = roaster.founded_year.value
+  assign description = roaster.description.value
+  assign logo = roaster.logo.value
+  assign logo_alt = 'coffee.roaster.logo_alt' | t: roaster: title
+
+  # Products of this roaster: compare the product's `coffee.roaster` reference with this entry.
+  assign source = section.settings.collection | default: collections.coffee
+-%}
+
+{%- capture product_cards -%}
+  {%- assign skip_card_styles = false -%}
+  {%- for product in source.products -%}
+    {%- if product.metafields.coffee.roaster.value.system.handle == roaster.system.handle -%}
+      <li class="grid__item">
+        {%- render 'card-product',
+          card_product: product,
+          media_aspect_ratio: 'square',
+          show_secondary_image: false,
+          show_vendor: false,
+          show_rating: false,
+          skip_styles: skip_card_styles,
+          section_id: section.id,
+          product_view_context: 'page'
+        -%}
+      </li>
+      {%- assign skip_card_styles = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="coffee-roaster page-width section-{{ section.id }}-padding">
+    <header class="coffee-roaster__header">
+      {%- if logo -%}
+        {{
+          logo
+          | image_url: width: 480
+          | image_tag:
+            class: 'coffee-roaster__logo',
+            widths: '120, 240, 480',
+            sizes: '(min-width: 750px) 240px, 120px',
+            loading: 'lazy',
+            alt: logo_alt
+        }}
+      {%- endif -%}
+
+      <div class="coffee-roaster__intro">
+        <h1 class="coffee-roaster__title h0">{{ title | escape }}</h1>
+
+        {%- if country != blank or founded_year != blank -%}
+          <dl class="coffee-roaster__facts">
+            {%- if country != blank -%}
+              <div class="coffee-roaster__fact">
+                <dt>{{ 'coffee.roaster.country' | t }}</dt>
+                <dd>{{ country | escape }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if founded_year != blank -%}
+              <div class="coffee-roaster__fact">
+                <dt>{{ 'coffee.roaster.founded' | t }}</dt>
+                <dd>{{ founded_year }}</dd>
+              </div>
+            {%- endif -%}
+          </dl>
+        {%- endif -%}
+      </div>
+    </header>
+
+    {%- if description != blank -%}
+      <div class="coffee-roaster__description rte">
+        <p>{{ description | escape | newline_to_br }}</p>
+      </div>
+    {%- endif -%}
+
+    {%- if product_cards != blank -%}
+      <section class="coffee-roaster__products" aria-labelledby="RoasterProducts-{{ section.id }}">
+        <h2 id="RoasterProducts-{{ section.id }}" class="h2">
+          {{ 'coffee.roaster.products_heading' | t: roaster: title }}
+        </h2>
+        <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop" role="list">
+          {{ product_cards }}
+        </ul>
+      </section>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-roaster.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.main-roaster.settings.collection.label",
+      "info": "t:sections.main-roaster.settings.collection.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
