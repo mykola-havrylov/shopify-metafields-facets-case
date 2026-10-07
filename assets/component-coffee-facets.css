@@ -1,0 +1,10 @@
+/* Facet filters: additions to Dawn's component-facets.css. */
+
+/* Shown only without JavaScript (inside <noscript>): the filter form is then a plain GET form. */
+.facets__no-js-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 1.6rem;
+  margin-top: 2rem;
+}

@@ -10,6 +10,12 @@ class FacetFiltersForm extends HTMLElement {
     const facetForm = this.querySelector('form');
     facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
 
+
+    facetForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onSubmitHandler(event);
+    });
+
     const facetWrapper = this.querySelector('#FacetsWrapperDesktop');
     if (facetWrapper) facetWrapper.addEventListener('keyup', onKeyUpEscape);
   }
@@ -129,10 +135,26 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderSection(html, event, updateEvent);
   }
 
+
+  static focusResultCount() {
+    const visibleCount = ['ProductCountDesktop', 'ProductCount']
+      .map((id) => document.getElementById(id))
+      .find((element) => element && element.offsetParent !== null);
+    if (!visibleCount) return;
+
+    const target = visibleCount.closest('.product-count__text') || visibleCount;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+
   static renderSection(html, event, updateEvent) {
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html);
     FacetFiltersForm.renderProductCount(html, updateEvent);
+    if (FacetFiltersForm.focusResultCountAfterRender) {
+      FacetFiltersForm.focusResultCountAfterRender = false;
+      FacetFiltersForm.focusResultCount();
+    }
     if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
   }
 
@@ -362,6 +384,7 @@ class FacetFiltersForm extends HTMLElement {
   onActiveFilterClick(event) {
     event.preventDefault();
     FacetFiltersForm.toggleActiveFacets();
+    FacetFiltersForm.focusResultCountAfterRender = true;
     const url =
       event.currentTarget.href.indexOf('?') == -1
         ? ''
@@ -371,6 +394,7 @@ class FacetFiltersForm extends HTMLElement {
 }
 
 FacetFiltersForm.filterData = [];
+FacetFiltersForm.focusResultCountAfterRender = false;
 FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
 FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
 customElements.define('facet-filters-form', FacetFiltersForm);

@@ -13,6 +13,7 @@ templates/*
 !snippets/coffee-tokens.liquid
 !assets/section-product-coffee-specs.css
 !assets/section-main-roaster.css
+!assets/component-coffee-facets.css
 !templates/metaobject/
 LICENSE.md
 package-lock.json
