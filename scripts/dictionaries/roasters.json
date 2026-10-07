@@ -1,0 +1,56 @@
+[
+  {
+    "handle": "northern-ember",
+    "title": "Northern Ember Roasters",
+    "country": "Norway",
+    "founded_year": 2012,
+    "description": "Small-batch light roasts built around clarity and sweetness. A fictional roaster created for this demo.",
+    "synonyms": ["Northern Ember", "N. Ember Roasters", "northern ember coffee"],
+    "logo": null
+  },
+  {
+    "handle": "copper-kettle",
+    "title": "Copper Kettle Coffee",
+    "country": "United Kingdom",
+    "founded_year": 2016,
+    "description": "Classic profiles roasted for filter and milk drinks. A fictional roaster created for this demo.",
+    "synonyms": ["Copper Kettle", "Copper Kettle Coffee Co.", "copper kettle roasters"],
+    "logo": null
+  },
+  {
+    "handle": "sunday-bean",
+    "title": "Sunday Bean Co.",
+    "country": "Germany",
+    "founded_year": 2009,
+    "description": "Chocolate-forward roasts and honest decafs. A fictional roaster created for this demo.",
+    "synonyms": ["Sunday Bean", "Sunday Bean Company", "sundaybean"],
+    "logo": null
+  },
+  {
+    "handle": "harbor-and-hill",
+    "title": "Harbor & Hill",
+    "country": "United States",
+    "founded_year": 2014,
+    "description": "Espresso-focused roastery with a rotating single-origin menu. A fictional roaster created for this demo.",
+    "synonyms": ["Harbor and Hill", "Harbour & Hill", "Harbor + Hill Coffee"],
+    "logo": null
+  },
+  {
+    "handle": "tiny-drum",
+    "title": "Tiny Drum Roastery",
+    "country": "Ukraine",
+    "founded_year": 2019,
+    "description": "Experimental lots and fermentation-driven profiles. A fictional roaster created for this demo.",
+    "synonyms": ["Tiny Drum", "Tiny Drum Coffee Roasters", "tinydrum"],
+    "logo": null
+  },
+  {
+    "handle": "alder-roast-lab",
+    "title": "Alder Roast Lab",
+    "country": "Netherlands",
+    "founded_year": 2011,
+    "description": "Data-driven roasting for filter and espresso. A fictional roaster created for this demo.",
+    "synonyms": ["Alder Roast", "Alder Roastlab", "Alder Roast Laboratory"],
+    "logo": null
+  }
+]

@@ -16,7 +16,11 @@
     "test": "node --test",
     "smoke": "node scripts/smoke.js",
     "definitions": "node scripts/create-definitions.js",
-    "definitions:dry-run": "node scripts/create-definitions.js --dry-run"
+    "definitions:dry-run": "node scripts/create-definitions.js --dry-run",
+    "generate-source": "node scripts/generate-source.js",
+    "normalize": "node scripts/normalize-report.js",
+    "seed:metaobjects": "node scripts/seed-metaobjects.js",
+    "seed:metaobjects:dry-run": "node scripts/seed-metaobjects.js --dry-run"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
