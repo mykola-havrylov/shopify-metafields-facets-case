@@ -42,6 +42,7 @@ export function fakeShopify({ roasters, processMethods }) {
     mutations: [],
     userErrors: {},
     acceptNonFilterable: false,
+    withImages: true,
   };
   let nextId = 1;
 
@@ -90,6 +91,7 @@ export function fakeShopify({ roasters, processMethods }) {
           productType: input.productType,
           vendor: input.vendor,
           publishedOnPublication: state.publishedProducts.has(id) && publicationId === 'gid://shopify/Publication/1',
+          media: { nodes: state.withImages ? [{ mediaContentType: 'IMAGE', status: 'READY' }] : [] },
           collections: {
             nodes: input.collections.flatMap((collectionId) =>
               [...state.collections.values()]

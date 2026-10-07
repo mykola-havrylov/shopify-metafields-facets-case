@@ -44,12 +44,15 @@ export const richTextFromParagraphs = (paragraphs) =>
 
 const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export function descriptionHtml(product, { roasterTitle, processTitle }) {
+/** The generated product description as plain text. */
+export function descriptionText(product, { roasterTitle, processTitle }) {
   const origin = product.origin.join(' / ');
   const notes = product.tasting_notes.join(', ').toLowerCase();
-  return `<p>${escapeHtml(
-    `${product.title} by ${roasterTitle}: a ${product.roast_level.toLowerCase()} roast, ${processTitle.toLowerCase()} process coffee from ${origin}. Tasting notes: ${notes}.`,
-  )}</p>`;
+  return `${product.title} by ${roasterTitle}: a ${product.roast_level.toLowerCase()} roast, ${processTitle.toLowerCase()} process coffee from ${origin}. Tasting notes: ${notes}.`;
+}
+
+export function descriptionHtml(product, titles) {
+  return `<p>${escapeHtml(descriptionText(product, titles))}</p>`;
 }
 
 /** Metafield inputs for the 11 keys. `types` maps key -> metafield type from scripts/definitions. */

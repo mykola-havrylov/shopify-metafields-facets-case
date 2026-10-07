@@ -30,6 +30,7 @@ const CATALOG_PRODUCTS = `#graphql
         vendor
         publishedOnPublication(publicationId: $publicationId)
         collections(first: 10) { nodes { handle } }
+        media(first: 5) { nodes { mediaContentType status } }
         metafields(namespace: "${NAMESPACE}", first: 20) { nodes { key type value } }
         variants(first: 30) { nodes { sku price selectedOptions { name value } } }
       }
@@ -63,6 +64,7 @@ export async function readStoreState(client, publicationId) {
         vendor: node.vendor,
         published: node.publishedOnPublication,
         collections: node.collections.nodes.map(({ handle }) => handle),
+        images: node.media.nodes.filter(({ mediaContentType }) => mediaContentType === 'IMAGE'),
         metafields: new Map(node.metafields.nodes.map(({ key, type, value }) => [key, { type, value }])),
         variants: node.variants.nodes.map(({ sku, price, selectedOptions }) => ({
           sku,
@@ -162,6 +164,8 @@ export function verifyCatalog({
     if (have.status !== 'ACTIVE') fail(`${where}: status is ${have.status}, expected ACTIVE`);
     if (!have.published) fail(`${where}: not published to the Online Store`);
     if (!have.collections.includes(COLLECTION.handle)) fail(`${where}: not in the "${COLLECTION.handle}" collection`);
+    if (!have.images.some(({ status }) => status === 'READY'))
+      fail(`${where}: no product image in status READY (npm run upload-images)`);
     if (have.vendor !== roasterTitles.get(want.roaster))
       fail(`${where}: vendor is "${have.vendor}", expected "${roasterTitles.get(want.roaster)}"`);
 

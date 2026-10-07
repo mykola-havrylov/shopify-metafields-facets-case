@@ -37,7 +37,7 @@ Tokens are CSS custom properties in `snippets/coffee-tokens.liquid`, set from `s
 
 ## Images
 
-- Products have **no photos** and roasters **no logos** in this demo. Dawn shows its product placeholders; nothing is passed off as a real photograph.
+- Product images are **AI-generated** (a bag of coffee on a grey background), not photographs; see [product-images.md](product-images.md) and [ai-assets.md](ai-assets.md). Their alt text says so. Roasters have **no logos** in this demo; Dawn's placeholders cover any product without an image.
 - The roaster logo is rendered with `image_url` + `image_tag` (`srcset` from `widths`, `sizes`, dimensions and `loading="lazy"`), so a logo works responsively as soon as one exists and is recorded in [third-party-assets.md](third-party-assets.md) or [ai-assets.md](ai-assets.md).
 - No hardcoded `cdn.shopify.com` URLs were added.
 
