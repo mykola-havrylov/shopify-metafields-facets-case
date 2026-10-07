@@ -1,5 +1,20 @@
 {
   "settings_schema": {
+    "coffee": {
+      "name": "Coffee",
+      "settings": {
+        "header": {
+          "content": "Coffee details"
+        },
+        "roast_scale_color": {
+          "label": "Roast scale color",
+          "info": "Fill of the roast scale on product pages. Keep it dark enough to stand out from the section background."
+        },
+        "chip_radius": {
+          "label": "Tasting note corner radius"
+        }
+      }
+    },
     "global": {
       "settings": {
         "header__border": {
@@ -375,6 +390,30 @@
     }
   },
   "sections": {
+    "product-coffee-specs": {
+      "name": "Coffee details",
+      "settings": {
+        "heading": {
+          "label": "Heading",
+          "info": "Leave empty to use the default heading."
+        },
+        "show_brew_guide": {
+          "label": "Show brew guide"
+        }
+      },
+      "presets": {
+        "name": "Coffee details"
+      }
+    },
+    "main-roaster": {
+      "name": "Roaster",
+      "settings": {
+        "collection": {
+          "label": "Coffee collection",
+          "info": "Products are taken from this collection. Defaults to the collection with the handle \"coffee\"."
+        }
+      }
+    },
     "all": {
       "animation": {
         "content": "Animations",

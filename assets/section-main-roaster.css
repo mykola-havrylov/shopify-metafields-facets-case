@@ -1,0 +1,46 @@
+/* Roaster page (metaobject template). Tokens come from snippets/coffee-tokens.liquid. */
+.coffee-roaster__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem 3rem;
+}
+
+.coffee-roaster__logo {
+  max-width: 12rem;
+  height: auto;
+}
+
+.coffee-roaster__title {
+  margin: 0;
+}
+
+.coffee-roaster__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 3rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+
+.coffee-roaster__fact dt {
+  color: rgba(var(--color-foreground), 0.75);
+  font-size: 1.4rem;
+}
+
+.coffee-roaster__fact dd {
+  margin: 0;
+}
+
+.coffee-roaster__description {
+  max-width: 72rem;
+  margin-top: 2.4rem;
+}
+
+.coffee-roaster__products {
+  margin-top: 4.8rem;
+}
+
+.coffee-roaster__products > h2 {
+  margin: 0 0 2rem;
+}

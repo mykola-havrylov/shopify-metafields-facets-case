@@ -69,6 +69,15 @@
         "padding_bottom": 12
       }
     },
+    "coffee-specs": {
+      "type": "product-coffee-specs",
+      "settings": {
+        "show_brew_guide": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -97,6 +106,7 @@
   },
   "order": [
     "main",
+    "coffee-specs",
     "disclosures",
     "related-products"
   ]
