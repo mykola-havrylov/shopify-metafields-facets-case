@@ -123,11 +123,11 @@ Then connect the repository to the store's themes (Online Store, Themes, Add the
 
 ## Quality
 
-[docs/quality.md](docs/quality.md) has the full results. In short, measured on the local development server (not the published store):
+[docs/quality.md](docs/quality.md) has the full results. In short, the browser checks ran on the local development server and Lighthouse on the published store:
 
 - `axe-core`: 0 violations on the collection, product and roaster pages at 1280 and 375 px.
 - Keyboard, no-JavaScript, reduced-motion and 200% text reviewed; a filter ticked with the keyboard keeps focus, and the filters work without JavaScript.
-  <<LIGHTHOUSE: measured on the published theme, to be filled in>>
+- Lighthouse on the published store, mobile, median of three runs (Performance / Accessibility / Best Practices / SEO): collection 97 / 97 / 100 / 100, product page 93 / 97 / 100 / 100, roaster page 89 / 97 / 100 / 100. CLS is 0 everywhere and LCP is 2.1 to 3.5 s. The Accessibility 97 is a contrast report on elements that Dawn's reveal-on-scroll animation has not shown yet, and the roaster page LCP is slowed by a lazy-loaded card image; both are explained in the quality notes.
 - Theme Check: 0 errors; the 9 warnings come from files inherited from Dawn.
 
 ## Limits of the approach

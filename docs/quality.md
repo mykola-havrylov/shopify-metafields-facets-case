@@ -14,7 +14,20 @@ Acceptance pass of 2026-10-08 on the `dev` branch. The browser checks below were
 
 ## Lighthouse
 
-<<LIGHTHOUSE: measured on the published theme, to be filled in>>
+Measured on 2026-10-08 on the published store (the theme connected to `main`), not on the local server. Lighthouse 13.4.1 in Chrome DevTools, mobile emulation with simulated throttling (150 ms round trip, 1.6 Mbps, 4x CPU slowdown), all four categories, three runs per page. The table shows the median; the range of the three Performance scores is in brackets.
+
+| Page                                   | Performance   | Accessibility | Best Practices | SEO | FCP   | LCP   | TBT   | CLS | Speed Index |
+| -------------------------------------- | ------------- | ------------- | -------------- | --- | ----- | ----- | ----- | --- | ----------- |
+| Collection `/collections/coffee`       | 97 (97 to 98) | 97            | 100            | 100 | 1.9 s | 2.1 s | 78 ms | 0   | 2.4 s       |
+| Product `/products/rwanda-natural-lot` | 93 (88 to 96) | 97            | 100            | 100 | 2.3 s | 2.8 s | 26 ms | 0   | 2.8 s       |
+| Roaster `/pages/roasters/sunday-bean`  | 89 (88 to 97) | 97            | 100            | 100 | 1.9 s | 3.5 s | 51 ms | 0   | 2.2 s       |
+
+What the numbers do and do not say:
+
+- **Accessibility 97 comes from one audit, color contrast.** Axe reports `#fdfdfd` text on white (1.01:1) for 31 elements on the collection, 28 on the product page and 3 on the roaster page. On the collection and roaster pages every one of them is below the first screen (product card titles and prices, the newsletter block in the footer), and that is where Dawn's reveal-on-scroll animation starts elements almost transparent. The contrast measured with the animation finished is in the section below and passes. The most likely explanation is a snapshot taken mid-fade-in, but the run was not repeated with the animation turned off, so this is not confirmed.
+- **The roaster page LCP varies from 2.3 to 3.7 s.** The largest element there is the image of the first product card, which is lazy-loaded and has no `fetchpriority`, so its download starts 180 to 300 ms after it is discovered. On the product page the main image is eager but also has no `fetchpriority="high"`. Neither was changed after these runs.
+- **Page weight is mostly Shopify's own code.** The 1.6 to 1.8 MB and 340 to 360 requests per page are dominated by scripts the platform injects (checkout preloads, web pixels, shop-js, analytics), which a theme cannot remove. Product images are 25 to 145 KB per page, served as WebP through `image_url`. The long tasks Lighthouse lists all belong to those scripts.
+- Best Practices and SEO are 100 on all three pages; CLS is 0.
 
 ## Contrast
 
