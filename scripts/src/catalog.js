@@ -13,15 +13,15 @@ const GRIND_SETS = [
 
 const BREW_GUIDES = {
   light: [
-    'Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.',
+    'Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.',
     'Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.',
   ],
   medium: [
-    'Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.',
+    'Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.',
     'Works well in a batch brewer; use a medium grind and rinse the paper filter first.',
   ],
   dark: [
-    'Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.',
+    'Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.',
     'For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.',
   ],
 };

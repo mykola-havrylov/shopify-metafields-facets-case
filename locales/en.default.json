@@ -539,7 +539,7 @@
       "roast_position": "{{ position }} of {{ total }}",
       "cupping_score": "Cupping score",
       "altitude": "Altitude",
-      "altitude_value": "{{ value }} masl",
+      "altitude_value": "{{ value }} m",
       "decaf": "Decaf",
       "yes": "Yes",
       "no": "No",
@@ -552,7 +552,8 @@
       "country": "Country",
       "founded": "Founded",
       "products_heading": "Coffees from {{ roaster }}",
-      "logo_alt": "{{ roaster }} logo"
+      "logo_alt": "{{ roaster }} logo",
+      "all_products": "All coffees from {{ roaster }}"
     }
   }
 }

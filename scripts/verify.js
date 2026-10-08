@@ -8,15 +8,11 @@ import { API_VERSION, createClient, loadConfig } from './src/client.js';
 import { loadDictionaries, loadDictionaryFiles } from './src/dictionaries.js';
 import { normalizeCatalogOrThrow } from './src/normalize.js';
 import { readStoreState, verifyCatalog, verifyPlatformFilters } from './src/verify.js';
+import { loadEnv } from './src/env.js';
 
 const pilot = process.argv.includes('--pilot');
 
-try {
-  process.loadEnvFile('.env');
-} catch (error) {
-  // No .env is fine when variables come from the process environment.
-  if (error.code !== 'ENOENT') throw error;
-}
+loadEnv();
 
 try {
   const config = loadConfig();

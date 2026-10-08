@@ -31,12 +31,12 @@ Run after `npm run seed:catalog`:
 ```sh
 npm run upload-images -- --dry-run    # reads only
 npm run upload-images                 # uploads what is missing
-npm run upload-images -- --replace    # deletes the product's images and uploads again
+npm run upload-images -- --replace    # uploads a new image, then deletes the old ones
 ```
 
-Per product: `stagedUploadsCreate` (PUT target) -> the bytes are sent to the staged URL -> `productUpdate` attaches the image as media -> the script waits for Shopify to finish processing (status `READY`).
+Per product: `stagedUploadsCreate` (PUT target) -> the bytes are sent to the staged URL -> `productUpdate` attaches the image as media -> the script waits for Shopify to finish processing (status `READY`). With `--replace` the old images are deleted only after the new one is `READY`: if it is still processing (`PROCESSING`) or failed (`FAILED`), the old images are kept and the product is reported with that status.
 
-- Idempotent: a product that already has an image with the expected alt text is `UNCHANGED`. A product with other images (for example added by hand) is reported as a `CONFLICT` and left alone unless `--replace` is given. A `FAILED` image is replaced automatically.
+- Idempotent: a product that already has an image with the expected alt text is `UNCHANGED`. A product with other images (for example added by hand) is reported as a `CONFLICT` and left alone unless `--replace` is given. An image that already failed processing is removed and uploaded again automatically.
 - The alt text is `AI-generated image of a bag of <product> coffee by <roaster>`, so the disclosure travels with the image on the storefront.
 - `npm run verify` requires every product to have an image in status `READY`.
 
