@@ -528,5 +528,31 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "coffee": {
+    "specs": {
+      "heading": "Coffee details",
+      "roaster": "Roaster",
+      "origin": "Origin",
+      "process": "Process",
+      "roast_level": "Roast level",
+      "roast_position": "{{ position }} of {{ total }}",
+      "cupping_score": "Cupping score",
+      "altitude": "Altitude",
+      "altitude_value": "{{ value }} masl",
+      "decaf": "Decaf",
+      "yes": "Yes",
+      "no": "No",
+      "variety": "Variety",
+      "harvest_year": "Harvest year",
+      "tasting_notes": "Tasting notes",
+      "brew_guide": "Brew guide"
+    },
+    "roaster": {
+      "country": "Country",
+      "founded": "Founded",
+      "products_heading": "Coffees from {{ roaster }}",
+      "logo_alt": "{{ roaster }} logo"
+    }
   }
 }

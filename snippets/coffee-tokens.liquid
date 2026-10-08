@@ -1,0 +1,10 @@
+{%- comment -%}
+  Design tokens for the coffee components, tied to config/settings_schema.json ("Coffee" group).
+  Defaults keep the components readable before the settings are first saved in the theme editor.
+{%- endcomment -%}
+{%- style -%}
+  :root {
+    --coffee-roast-fill: {{ settings.coffee_roast_scale_color | default: '#6b4226' }};
+    --coffee-chip-radius: {{ settings.coffee_chip_radius | default: 20 }}px;
+  }
+{%- endstyle -%}

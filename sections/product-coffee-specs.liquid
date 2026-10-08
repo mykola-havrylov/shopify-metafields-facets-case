@@ -1,0 +1,256 @@
+{{ 'section-product-coffee-specs.css' | asset_url | stylesheet_tag }}
+{% render 'coffee-tokens' %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign specs = product.metafields.coffee
+  assign roaster = specs.roaster.value
+  assign process = specs.process.value
+  assign origin = specs.origin.value
+  assign roast_level = specs.roast_level.value
+  assign cupping_score = specs.cupping_score.value
+
+  # Decimals print with a trailing ".0" (84.0); show whole scores as integers.
+  assign cupping_text = cupping_score | round: 2
+  assign cupping_whole = cupping_score | round: 0
+  if cupping_whole == cupping_score
+    assign cupping_text = cupping_whole
+  endif
+  assign altitude = specs.altitude_masl.value
+  assign variety = specs.variety.value
+  assign harvest_year = specs.harvest_year.value
+  assign tasting_notes = specs.tasting_notes.value
+
+  # Position of the roast level on the 5 step scale; 0 when the value is not on the scale.
+  assign roast_levels = 'Light,Medium-Light,Medium,Medium-Dark,Dark' | split: ','
+  assign roast_position = 0
+  for level in roast_levels
+    if level == roast_level
+      assign roast_position = forloop.index
+    endif
+  endfor
+
+  # `false` counts as blank in Liquid, so decaf is checked against nil to still show "No".
+  assign has_decaf = false
+  if specs.decaf.value != null
+    assign has_decaf = true
+  endif
+
+  assign has_specs = false
+  if roaster or process or origin != blank or roast_level != blank or cupping_score != blank or altitude != blank or has_decaf or variety != blank or harvest_year != blank or tasting_notes != blank
+    assign has_specs = true
+  endif
+
+  assign show_brew_guide = false
+  if section.settings.show_brew_guide and specs.brew_guide.value != blank
+    assign show_brew_guide = true
+  endif
+
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'coffee.specs.heading' | t
+  endif
+-%}
+
+{%- if has_specs or show_brew_guide -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="coffee-specs page-width section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <h2 class="coffee-specs__heading h2">{{ heading | escape }}</h2>
+
+      {%- if has_specs -%}
+        <dl class="coffee-specs__list">
+          {%- if roaster -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.roaster' | t }}</dt>
+              <dd class="coffee-specs__value">
+                {%- if roaster.system.url != blank -%}
+                  <a class="link" href="{{ roaster.system.url }}">{{ roaster.title.value | escape }}</a>
+                {%- else -%}
+                  {{ roaster.title.value | escape }}
+                {%- endif -%}
+              </dd>
+            </div>
+          {%- endif -%}
+
+          {%- if origin != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.origin' | t }}</dt>
+              <dd class="coffee-specs__value">{{ origin | join: ', ' | escape }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if process -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.process' | t }}</dt>
+              <dd class="coffee-specs__value">
+                {%- if process.color.value != blank -%}
+                  <span
+                    class="coffee-swatch"
+                    style="--coffee-swatch-color: {{ process.color.value }}"
+                    aria-hidden="true"
+                  ></span>
+                {%- endif -%}
+                <span>{{ process.title.value | escape }}</span>
+              </dd>
+            </div>
+          {%- endif -%}
+
+          {%- if roast_level != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.roast_level' | t }}</dt>
+              <dd class="coffee-specs__value">
+                <span>{{ roast_level | escape }}</span>
+                {%- if roast_position > 0 -%}
+                  <span class="coffee-roast" aria-hidden="true">
+                    {%- for step in (1..5) -%}
+                      <span
+                        class="coffee-roast__step{% if step <= roast_position %} coffee-roast__step--filled{% endif %}"
+                      ></span>
+                    {%- endfor -%}
+                  </span>
+                  <span class="visually-hidden">
+                    {{- 'coffee.specs.roast_position' | t: position: roast_position, total: 5 -}}
+                  </span>
+                {%- endif -%}
+              </dd>
+            </div>
+          {%- endif -%}
+
+          {%- if cupping_score != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.cupping_score' | t }}</dt>
+              <dd class="coffee-specs__value">{{ cupping_text }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if altitude != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.altitude' | t }}</dt>
+              <dd class="coffee-specs__value">{{ 'coffee.specs.altitude_value' | t: value: altitude }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if has_decaf -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.decaf' | t }}</dt>
+              <dd class="coffee-specs__value">
+                {%- if specs.decaf.value -%}
+                  {{ 'coffee.specs.yes' | t }}
+                {%- else -%}
+                  {{ 'coffee.specs.no' | t }}
+                {%- endif -%}
+              </dd>
+            </div>
+          {%- endif -%}
+
+          {%- if variety != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.variety' | t }}</dt>
+              <dd class="coffee-specs__value">{{ variety | join: ', ' | escape }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if harvest_year != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.harvest_year' | t }}</dt>
+              <dd class="coffee-specs__value">{{ harvest_year }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if tasting_notes != blank -%}
+            <div class="coffee-specs__row">
+              <dt class="coffee-specs__term">{{ 'coffee.specs.tasting_notes' | t }}</dt>
+              <dd class="coffee-specs__value">
+                <ul class="coffee-chips" role="list">
+                  {%- for note in tasting_notes -%}
+                    <li class="coffee-chips__item">{{ note | escape }}</li>
+                  {%- endfor -%}
+                </ul>
+              </dd>
+            </div>
+          {%- endif -%}
+        </dl>
+      {%- endif -%}
+
+      {%- if show_brew_guide -%}
+        <div class="coffee-specs__brew">
+          <h3 class="coffee-specs__subheading h4">{{ 'coffee.specs.brew_guide' | t }}</h3>
+          <div class="rte">{{ specs.brew_guide | metafield_tag }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.product-coffee-specs.name",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.product-coffee-specs.settings.heading.label",
+      "info": "t:sections.product-coffee-specs.settings.heading.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brew_guide",
+      "label": "t:sections.product-coffee-specs.settings.show_brew_guide.label",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.product-coffee-specs.presets.name"
+    }
+  ]
+}
+{% endschema %}

@@ -8,7 +8,18 @@ class FacetFiltersForm extends HTMLElement {
     }, 800);
 
     const facetForm = this.querySelector('form');
-    facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
+    facetForm.addEventListener('input', (event) => {
+      // A re-render can replace the toggled control before the debounced handler runs, which detaches
+      // event.target and made closest('form') return null. Remember the form while it is still attached.
+      event.facetForm = event.target.closest('form');
+      FacetFiltersForm.inputVersion += 1;
+      this.debouncedOnSubmit(event);
+    });
+
+    facetForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onSubmitHandler(event);
+    });
 
     const facetWrapper = this.querySelector('#FacetsWrapperDesktop');
     if (facetWrapper) facetWrapper.addEventListener('keyup', onKeyUpEscape);
@@ -31,6 +42,7 @@ class FacetFiltersForm extends HTMLElement {
 
   static renderPage(searchParams, event, updateURLHash = true) {
     FacetFiltersForm.searchParamsPrev = searchParams;
+    const inputVersion = FacetFiltersForm.inputVersion;
     const sections = FacetFiltersForm.getSections();
     const updateEvent = FacetFiltersForm.startUpdateEvent(searchParams);
     const countContainer = document.getElementById('ProductCount');
@@ -52,8 +64,8 @@ class FacetFiltersForm extends HTMLElement {
       const filterDataUrl = (element) => element.url === url;
 
       FacetFiltersForm.filterData.some(filterDataUrl)
-        ? FacetFiltersForm.renderSectionFromCache(filterDataUrl, event, updateEvent)
-        : FacetFiltersForm.renderSectionFromFetch(url, event, updateEvent);
+        ? FacetFiltersForm.renderSectionFromCache(filterDataUrl, event, updateEvent, inputVersion)
+        : FacetFiltersForm.renderSectionFromFetch(url, event, updateEvent, inputVersion);
     });
 
     if (updateURLHash) FacetFiltersForm.updateURLHash(searchParams);
@@ -111,12 +123,12 @@ class FacetFiltersForm extends HTMLElement {
     };
   }
 
-  static renderSectionFromFetch(url, event, updateEvent) {
+  static renderSectionFromFetch(url, event, updateEvent, inputVersion) {
     fetch(url)
       .then((response) => response.text())
       .then((html) => {
         FacetFiltersForm.filterData = [...FacetFiltersForm.filterData, { html, url }];
-        FacetFiltersForm.renderSection(html, event, updateEvent);
+        FacetFiltersForm.renderSection(html, event, updateEvent, inputVersion);
       })
       .catch((error) => {
         console.error(error);
@@ -124,15 +136,43 @@ class FacetFiltersForm extends HTMLElement {
       });
   }
 
-  static renderSectionFromCache(filterDataUrl, event, updateEvent) {
+  static renderSectionFromCache(filterDataUrl, event, updateEvent, inputVersion) {
     const html = FacetFiltersForm.filterData.find(filterDataUrl).html;
-    FacetFiltersForm.renderSection(html, event, updateEvent);
+    FacetFiltersForm.renderSection(html, event, updateEvent, inputVersion);
   }
 
-  static renderSection(html, event, updateEvent) {
+
+  static focusResultCount() {
+    const visibleCount = ['ProductCountDesktop', 'ProductCount']
+      .map((id) => document.getElementById(id))
+      .find((element) => element && element.offsetParent !== null);
+    if (!visibleCount) return;
+
+    const target = visibleCount.closest('.product-count__text') || visibleCount;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+
+  // Another filter was changed while this request was in flight. Rendering the response would replace the sidebar
+  // and wipe that change; the debounced handler of the newer change sends an up to date request and renders it.
+  static skipStaleRender(html, updateEvent) {
+    const sourceCount = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount');
+    updateEvent?.resolve(parseInt(sourceCount?.dataset.productCount) || 0);
+  }
+
+  static renderSection(html, event, updateEvent, inputVersion) {
+    if (inputVersion !== undefined && inputVersion !== FacetFiltersForm.inputVersion) {
+      FacetFiltersForm.skipStaleRender(html, updateEvent);
+      return;
+    }
+
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html);
     FacetFiltersForm.renderProductCount(html, updateEvent);
+    if (FacetFiltersForm.focusResultCountAfterRender) {
+      FacetFiltersForm.focusResultCountAfterRender = false;
+      FacetFiltersForm.focusResultCount();
+    }
     if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
   }
 
@@ -229,8 +269,11 @@ class FacetFiltersForm extends HTMLElement {
         const newFacetDetailsElement = document.getElementById(closestJSFilterID);
 
         const isTextInput = event.target.getAttribute('type') === 'text';
+        // Focus is only restored when the re-render dropped it. After a keyboard user moved on, or after the drawer
+        // was closed with Apply, it must stay where it is.
+        const focusWasLost = !document.activeElement || document.activeElement === document.body;
 
-        if (!isTextInput) {
+        if (!isTextInput && focusWasLost) {
           // Try to return focus to the same checkbox the user just toggled,
           // re-selecting it from the freshly rendered HTML by its id.
           const originatingInputId = event.target.id;
@@ -338,13 +381,14 @@ class FacetFiltersForm extends HTMLElement {
 
   onSubmitHandler(event) {
     event.preventDefault();
+    const sourceForm = event.facetForm || event.target.closest('form');
     const sortFilterForms = document.querySelectorAll('facet-filters-form form');
     if (event.srcElement.className == 'mobile-facets__checkbox') {
-      const searchParams = this.createSearchParams(event.target.closest('form'));
+      const searchParams = this.createSearchParams(sourceForm);
       this.onSubmitForm(searchParams, event);
     } else {
       const forms = [];
-      const isMobile = event.target.closest('form').id === 'FacetFiltersFormMobile';
+      const isMobile = sourceForm.id === 'FacetFiltersFormMobile';
 
       sortFilterForms.forEach((form) => {
         if (!isMobile) {
@@ -362,6 +406,7 @@ class FacetFiltersForm extends HTMLElement {
   onActiveFilterClick(event) {
     event.preventDefault();
     FacetFiltersForm.toggleActiveFacets();
+    FacetFiltersForm.focusResultCountAfterRender = true;
     const url =
       event.currentTarget.href.indexOf('?') == -1
         ? ''
@@ -371,6 +416,8 @@ class FacetFiltersForm extends HTMLElement {
 }
 
 FacetFiltersForm.filterData = [];
+FacetFiltersForm.focusResultCountAfterRender = false;
+FacetFiltersForm.inputVersion = 0;
 FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
 FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
 customElements.define('facet-filters-form', FacetFiltersForm);

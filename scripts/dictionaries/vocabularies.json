@@ -1,0 +1,45 @@
+{
+  "origins": [
+    { "canonical": "Ethiopia", "synonyms": ["Etiopia", "Ethiopía", "Ethiopian"] },
+    { "canonical": "Kenya", "synonyms": ["Kenia", "Kenyan"] },
+    { "canonical": "Colombia", "synonyms": ["Columbia", "Colombian"] },
+    { "canonical": "Brazil", "synonyms": ["Brasil", "Brazilian"] },
+    { "canonical": "Guatemala", "synonyms": ["Guatemalan"] },
+    { "canonical": "Costa Rica", "synonyms": ["CostaRica", "Costarica"] },
+    { "canonical": "Rwanda", "synonyms": ["Ruanda"] },
+    { "canonical": "Honduras", "synonyms": ["Honduran"] },
+    { "canonical": "Peru", "synonyms": ["Perú", "Peruvian"] },
+    { "canonical": "Indonesia", "synonyms": ["Sumatra"] },
+    { "canonical": "Panama", "synonyms": ["Panamá"] }
+  ],
+  "roast_levels": [
+    { "canonical": "Light", "synonyms": ["Light Roast", "Nordic", "Cinnamon"] },
+    { "canonical": "Medium-Light", "synonyms": ["Med Light", "Light Medium", "Medium Light Roast"] },
+    { "canonical": "Medium", "synonyms": ["Med", "Medium Roast", "City", "City+"] },
+    { "canonical": "Medium-Dark", "synonyms": ["Med Dark", "Dark Medium", "Full City", "Vienna"] },
+    { "canonical": "Dark", "synonyms": ["Dark Roast", "French", "Italian"] }
+  ],
+  "varieties": [
+    { "canonical": "Bourbon", "synonyms": ["Red Bourbon", "Yellow Bourbon"] },
+    { "canonical": "Typica", "synonyms": ["Tipica"] },
+    { "canonical": "Caturra", "synonyms": [] },
+    { "canonical": "Catuai", "synonyms": ["Catuaí"] },
+    { "canonical": "SL28", "synonyms": ["SL 28"] },
+    { "canonical": "SL34", "synonyms": ["SL 34"] },
+    { "canonical": "Heirloom", "synonyms": ["Ethiopian Heirloom", "Landrace"] },
+    { "canonical": "Geisha", "synonyms": ["Gesha"] },
+    { "canonical": "Pacamara", "synonyms": [] },
+    { "canonical": "Castillo", "synonyms": [] }
+  ],
+  "grinds": [
+    { "canonical": "Whole bean", "synonyms": ["Whole beans", "Beans", "Wholebean"] },
+    { "canonical": "Espresso", "synonyms": ["Espresso grind", "Fine"] },
+    { "canonical": "Filter", "synonyms": ["Drip", "Pour over", "Medium grind"] },
+    { "canonical": "French press", "synonyms": ["Press", "Coarse", "Cafetiere"] }
+  ],
+  "sizes": [
+    { "canonical": "250 g", "grams": 250 },
+    { "canonical": "500 g", "grams": 500 },
+    { "canonical": "1 kg", "grams": 1000 }
+  ]
+}

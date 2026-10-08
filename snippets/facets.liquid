@@ -15,6 +15,7 @@
 {{ 'component-show-more.css' | asset_url | stylesheet_tag }}
 {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
 {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{{ 'component-coffee-facets.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign sort_by = results.sort_by | default: results.default_sort_by
@@ -228,6 +229,7 @@
                               {%- if presentation == 'swatch' -%}
                                 <div class="{{ label_class }}">
                                   <div class="swatch-input-wrapper">
+                                    {%- capture swatch_name -%}<span class="visually-hidden">{{ value.label | escape }}</span>{%- endcapture -%}
                                     {% render 'swatch-input',
                                       id: input_id,
                                       type: 'checkbox',
@@ -236,7 +238,9 @@
                                       product_form_id: 'FacetFiltersForm',
                                       swatch: value.swatch,
                                       checked: value.active,
-                                      disabled: is_disabled
+                                      disabled: is_disabled,
+                                      help_text: swatch_name,
+                                      label: value.label
                                     %}
                                   </div>
 
@@ -440,6 +444,13 @@
             {%- render 'loading-spinner' -%}
           </div>
         {%- endif -%}
+        {%- comment -%} Without JavaScript the form is a plain GET form and needs an explicit submit button. {%- endcomment -%}
+        <noscript>
+          <div class="facets__no-js-actions">
+            <button type="submit" class="button button--primary">{{ 'products.facets.apply' | t }}</button>
+            <a href="{{ results_url }}" class="link">{{ 'products.facets.clear_all' | t }}</a>
+          </div>
+        </noscript>
       </form>
     </facet-filters-form>
   {%- endif -%}
@@ -597,6 +608,7 @@
                                 {% if presentation == 'swatch' %}
                                   <div class="{{ label_class }}">
                                     <div class="swatch-input-wrapper">
+                                      {%- capture swatch_name -%}<span class="visually-hidden">{{ value.label | escape }}</span>{%- endcapture -%}
                                       {% render 'swatch-input',
                                         id: input_id,
                                         type: 'checkbox',
@@ -605,7 +617,9 @@
                                         product_form_id: 'FacetFiltersFormMobile',
                                         swatch: value.swatch,
                                         checked: value.active,
-                                        disabled: is_disabled
+                                        disabled: is_disabled,
+                                        help_text: swatch_name,
+                                        label: value.label
                                       %}
                                     </div>
 
@@ -763,8 +777,12 @@
                     {{- 'products.facets.clear_all' | t -}}
                   </a>
                 </facet-remove>
+                {%- comment -%}
+                  A submit button so the drawer also works as a plain GET form; with JavaScript facets.js
+                  keeps the page in place and the click closes the drawer.
+                {%- endcomment -%}
                 <button
-                  type="button"
+                  type="submit"
                   class="button button--primary"
                   onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
                 >

@@ -1,12 +1,20 @@
 # Dawn-derived theme files keep upstream formatting. Remove an entry (or add a
 # negated pattern) once a directory is owned and reformatted by this repo.
-assets/
+assets/*
 config/
 layout/
 locales/
-sections/
-snippets/
-templates/
+sections/*
+snippets/*
+templates/*
+# Files written in this repo are formatted and checked.
+!sections/product-coffee-specs.liquid
+!sections/main-roaster.liquid
+!snippets/coffee-tokens.liquid
+!assets/section-product-coffee-specs.css
+!assets/section-main-roaster.css
+!assets/component-coffee-facets.css
+!templates/metaobject/
 LICENSE.md
 package-lock.json
 data/
