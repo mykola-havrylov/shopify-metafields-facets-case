@@ -2,6 +2,8 @@
 // the 11 `coffee.*` metafields (references resolved to metaobject ids), all published to the Online Store.
 // Products are written with productSet keyed by handle, so a repeat run updates instead of duplicating.
 
+import { assertNoUserErrors } from './user-errors.js';
+
 export const NAMESPACE = 'coffee';
 export const PRODUCT_TYPE = 'Coffee';
 export const COLLECTION = { handle: 'coffee', title: 'Coffee' };
@@ -11,7 +13,7 @@ export const ONLINE_STORE_PUBLICATION_TITLE = 'Online Store';
 export const isOnlineStoreCatalog = (title) =>
   title === ONLINE_STORE_PUBLICATION_TITLE || (title ?? '').endsWith(` for ${ONLINE_STORE_PUBLICATION_TITLE}`);
 
-// Five products spread over every roast level, three processes and a decaf: the pilot batch.
+// The pilot batch: five products covering four roast levels, three processes and a decaf.
 export const PILOT_HANDLES = [
   'yirgacheffe-kochere',
   'huila-supremo',
@@ -108,9 +110,10 @@ export function buildProductSetInput(product, { roasterTitle, processTitle, coll
 // ---- Admin API ----------------------------------------------------------------------------------------------
 
 const METAOBJECT_IDS = `#graphql
-  query MetaobjectIds($type: String!) {
-    metaobjects(type: $type, first: 100) {
+  query MetaobjectIds($type: String!, $after: String) {
+    metaobjects(type: $type, first: 100, after: $after) {
       nodes { id handle }
+      pageInfo { hasNextPage endCursor }
     }
   }
 `;
@@ -183,19 +186,16 @@ const PUBLISH = `#graphql
   }
 `;
 
-function assertNoUserErrors(action, userErrors) {
-  if (userErrors.length > 0) {
-    const details = userErrors.map(
-      ({ field, message, code }) => `${(field ?? []).join('.')}: ${message}${code ? ` (${code})` : ''}`,
-    );
-    throw new Error(`${action} failed: ${details.join('; ')}`);
-  }
-}
-
 /** handle -> metaobject GID for every entry of a definition. */
 export async function fetchMetaobjectIds(client, type) {
-  const { metaobjects } = await client.graphql(METAOBJECT_IDS, { type });
-  return new Map(metaobjects.nodes.map(({ id, handle }) => [handle, id]));
+  const ids = new Map();
+  let after = null;
+  do {
+    const { metaobjects } = await client.graphql(METAOBJECT_IDS, { type, after });
+    for (const { id, handle } of metaobjects.nodes) ids.set(handle, id);
+    after = metaobjects.pageInfo.hasNextPage ? metaobjects.pageInfo.endCursor : null;
+  } while (after);
+  return ids;
 }
 
 export async function findOnlineStorePublication(client) {

@@ -28,6 +28,15 @@
 
   # Products of this roaster: compare the product's `coffee.roaster` reference with this entry.
   assign source = section.settings.collection | default: collections.coffee
+
+  # The complete list: the source collection filtered by this roaster. system.id is the numeric id; the
+  # storefront filter value is the global id gid://shopify/Metaobject/<id>.
+  assign roaster_gid = 'gid://shopify/Metaobject/' | append: roaster.system.id
+  assign all_products_url = ''
+  if source.url != blank
+    assign filter_value = roaster_gid | url_encode
+    assign all_products_url = source.url | append: '?filter.p.m.coffee.roaster=' | append: filter_value
+  endif
 -%}
 
 {%- capture product_cards -%}
@@ -103,6 +112,13 @@
         <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop" role="list">
           {{ product_cards }}
         </ul>
+        {%- if all_products_url != blank -%}
+          <p class="coffee-roaster__all">
+            <a class="link" href="{{ all_products_url }}">
+              {{- 'coffee.roaster.all_products' | t: roaster: title -}}
+            </a>
+          </p>
+        {%- endif -%}
       </section>
     {%- endif -%}
   </div>

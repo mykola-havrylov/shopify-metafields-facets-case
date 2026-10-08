@@ -18,7 +18,7 @@ Capabilities: `publishable`, `renderable` (SEO title = `title`, description = `d
 | `description`  | `multi_line_text_field`  | no       | -                  |
 | `logo`         | `file_reference`         | no       | file type: `Image` |
 
-Entries must be `ACTIVE` to be visible on the storefront (`publishable` defaults new entries to `DRAFT`); the seed script (T-06) sets this.
+Entries must be `ACTIVE` to be visible on the storefront (`publishable` defaults new entries to `DRAFT`); the seed script sets this (see [normalization.md](normalization.md)).
 
 ### `process_method`
 
@@ -61,12 +61,12 @@ Checked against [Search & Discovery filters](https://help.shopify.com/en/manual/
 - Supported metafield types: single line text (and list), decimal, integer, true or false, metaobject reference (and list). The seven filterable metafields use only these types.
 - Metafield definitions and metaobject definitions both need storefront access: all of them have it.
 - Visual filter: the metaobject needs a single color (or image) field plus a single-value naming field, and the product metafield must be a metaobject reference to it. `process_method` and `coffee.process` satisfy this.
-- Limits: 25 filters per store, 200 unique values per filter group, 1,000 filter groups, and filters are not shown on collections with more than 5,000 products. The 24-30 product catalog stays far below all of them.
-- The seven filters are enabled and ordered by hand in the Search & Discovery app (task T-10).
+- Limits: 25 filters per store, 200 unique values per filter group, 1,000 filter groups, and filters are not shown on collections with more than 5,000 products. The 28-product catalog stays far below all of them.
+- The seven filters are enabled and ordered by hand in the Search & Discovery app (see [facets.md](facets.md)).
 
 ## Definitions are append-only
 
-A metafield definition's `type` cannot change after creation. If a type has to change: delete the definition, recreate it, re-seed the data. That is why the schema is accepted by hand (T-05) before any product data is written.
+A metafield definition's `type` cannot change after creation. If a type has to change: delete the definition, recreate it, re-seed the data. That is why the schema is reviewed by hand before any product data is written.
 
 ## Creating the definitions
 

@@ -1,6 +1,6 @@
 # Shopify metafields and facets: a coffee catalog without a filter app
 
-A Dawn-based theme and a set of idempotent Admin API scripts that model a coffee catalog with **native metafields and metaobjects** and filter it with **Search & Discovery facets**: no third-party filter app, no external requests at render time.
+A Dawn-based theme and a set of idempotent Admin API scripts that model a coffee catalog with **native metafields and metaobjects** and filter it with **Search & Discovery facets**: no third-party filter app.
 
 ## Live demo
 
@@ -9,9 +9,7 @@ A Dawn-based theme and a set of idempotent Admin API scripts that model a coffee
 
 This is a Shopify development store, and development stores are always password protected. The password is shown here because it is not a secret: it only keeps the demo out of search engines.
 
-**Portfolio demo. Product images are AI-generated; products are fictional.**
-
-It is a **demonstration store**: the roasters and products are fictional, and the product images are **AI-generated illustrations, not photographs** (see [AI disclosure](#ai-disclosure)). It is not a client project, and no client code, names, schemas or data are used anywhere in this repository.
+**Portfolio demo.** The roasters and products are fictional and the product images are AI-generated illustrations, not photographs ([details](#ai-generated-media)). No client code, names, schemas or data are used in this repository.
 
 ![Collection page with filters](docs/screenshots/collection-desktop.jpg)
 
@@ -69,9 +67,9 @@ The source is a generated export in `data/source/products.raw.json` with synonym
 
 `npm run normalize` writes the before/after report. Rules, formats and dictionaries are in [docs/normalization.md](docs/normalization.md).
 
-`npm run verify` then checks the store against the same source of truth: missing products or metafields, values outside a dictionary, unexpected products (a handle with a numeric suffix means a duplicate), incomplete `Size x Grind` variants and prices, missing images, facet groups over 200 values, and that Admin API filters on the seven facet metafields return the expected counts while filtering by the four non-facet ones is rejected, as it is on API version `2026-10`. See [docs/seed-and-verify.md](docs/seed-and-verify.md).
+`npm run verify` then checks the store against the same source of truth: missing products or metafields, values outside a dictionary, unexpected products (a handle with a numeric suffix means a duplicate), incomplete `Size x Grind` variants and prices, missing images and facet groups over 200 values. It also runs Admin API product searches on the seven metafields that have `adminFilterable` enabled and compares the counts with the source data, and confirms that a search on the four others is rejected, as it is on API version `2026-10`. That checks the data behind the facets; it does not test Search & Discovery itself, whose storefront facets were checked in the browser ([docs/facets.md](docs/facets.md), [docs/quality.md](docs/quality.md)). See [docs/seed-and-verify.md](docs/seed-and-verify.md).
 
-Every script is safe to repeat: the second run reports `EXISTS`, `UNCHANGED` or `SYNCED` and creates nothing. Each has a `--dry-run` that only reads.
+The scripts that write to the store (`definitions`, `seed:metaobjects`, `seed:catalog`, `upload-images`) are safe to repeat: the second run reports `EXISTS`, `UNCHANGED` or `SYNCED` and creates nothing. Each of them has a `--dry-run` that only reads.
 
 ## Search & Discovery filters
 
@@ -90,7 +88,7 @@ assets/ config/ layout/ locales/ sections/ snippets/ templates/   the theme (rep
 scripts/   Admin API client, definitions, normalization, seeds, verify, images
 data/      generated source data, image prompts and the AI-generated images
 docs/      data model, normalization, facets, theme, quality, asset records
-tests/     120 unit tests, no network
+tests/     130 unit tests, no network
 ```
 
 Requirements: Node 22 or newer, and the [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) for `theme dev` and Theme Check.
@@ -129,7 +127,7 @@ Then connect the repository to the store's themes (Online Store, Themes, Add the
 
 - `axe-core`: 0 violations on the collection, product and roaster pages at 1280 and 375 px.
 - Keyboard, no-JavaScript, reduced-motion and 200% text reviewed; a filter ticked with the keyboard keeps focus, and the filters work without JavaScript.
-- Lighthouse on the collection, mobile emulation, median of three: performance 66, accessibility 97, CLS 0; desktop performance 95. Most of the mobile page weight (about 3.4 of 4.9 MB) is Shopify's own checkout scripts injected by the store, while the 16 product images together weigh 144 KB. Treat these as lab numbers from a development server.
+  <<LIGHTHOUSE: measured on the published theme, to be filled in>>
 - Theme Check: 0 errors; the 9 warnings come from files inherited from Dawn.
 
 ## Limits of the approach
@@ -141,8 +139,11 @@ Then connect the repository to the store's themes (Online Store, Themes, Add the
 - The development store keeps its storefront password; a public showcase without one would need a paid plan.
 - Nothing here measures or proves figures from any client migration. This is a synthetic demonstration, and the cost comparison with a paid filter app depends on the vendor's current pricing, which this repository does not state or compare. Where an app is still justified is a separate question: merchandising rules, scale beyond the limits above, or UI the theme cannot provide.
 
-## License, provenance and AI disclosure
+## License
 
-- **Own code and documentation:** MIT, see [LICENSE](LICENSE). It covers the scripts, tests, docs, generated catalog data and the theme files written for this project; it is not a claim over the AI-generated images (see below).
-- **Dawn:** the theme base is [Dawn](https://github.com/Shopify/dawn) `v16.0.0`, Copyright Shopify Inc. Its license, kept verbatim in [LICENSE.md](LICENSE.md), only permits use for themes that integrate or interoperate with Shopify, so Dawn-derived files stay under that license. Every file taken from Dawn is recorded in [docs/third-party-assets.md](docs/third-party-assets.md); there are no other third-party assets.
-- <a id="ai-disclosure"></a>**AI disclosure:** the 28 product images in `data/images/` were generated with Codex (OpenAI), from the prompts in `data/images/prompts.json` (derived from the catalog data). They are illustrations of fictional coffee bags, not photographs, and every image is uploaded with alt text beginning "AI-generated image of". Tool, purpose and date are recorded in [docs/ai-assets.md](docs/ai-assets.md). The roaster names and the catalog data are invented.
+- **Own files:** the code, documentation, tests, generated data and theme files created for this project are MIT, see [LICENSE](LICENSE).
+- **Dawn:** the theme base is [Dawn](https://github.com/Shopify/dawn) `v16.0.0`, Copyright Shopify Inc. Every file that originates from Dawn, including the ones modified here (listed in [docs/third-party-assets.md](docs/third-party-assets.md)), stays under Dawn's [LICENSE.md](LICENSE.md), which only permits use for themes that integrate or interoperate with Shopify.
+
+## AI-generated media
+
+The 28 product images in `data/images/` were generated with Codex (OpenAI), from the prompts in `data/images/prompts.json` (derived from the catalog data). They are illustrations of fictional coffee bags, not photographs, and every image is uploaded with alt text beginning "AI-generated image of". Tool, purpose and date are recorded in [docs/ai-assets.md](docs/ai-assets.md), together with the status of the images under the repository license. The roaster names and the catalog data are invented.

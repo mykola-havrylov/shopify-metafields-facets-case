@@ -11,7 +11,7 @@
     "tasting_notes": "Jasmine / bergamot / PEACH",
     "variety": " Landrace ",
     "harvest": "Crop 2025",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250g",
     "grinds": "beans",
     "price_250g": "$18.50"
@@ -28,7 +28,7 @@
     "tasting_notes": "blueberry; STRAWBERRY JAM; Floral",
     "variety": "heirloom",
     "harvest": "2025 harvest",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250 G,1 KG",
     "grinds": " WHOLEBEAN  / Filter",
     "price_250g": "19,50"
@@ -45,7 +45,7 @@
     "tasting_notes": "BLACKCURRANT,Grapefruit,brown sugar",
     "variety": "SL 28\t / SL34",
     "harvest": "2025 crop",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "0.25 kg | 17.6 oz | 1kg",
     "grinds": "Whole bean; espresso\t; Pour  over",
     "price_250g": "17.90 USD"
@@ -62,7 +62,7 @@
     "tasting_notes": "Caramel | red apple | MILK CHOCOLATE",
     "variety": "Caturra;  castillo ",
     "harvest": "2025",
-    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
+    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
     "sizes": "250 gr",
     "grinds": "whole beans\t & Espresso  grind &  medium grind  & FRENCH PRESS",
     "price_250g": "14.50"
@@ -79,7 +79,7 @@
     "tasting_notes": "cherry, PANELA, Orange",
     "variety": " bourbon ",
     "harvest": "Crop 2025",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "8.8 oz / 1000 g",
     "grinds": "Beans",
     "price_250g": "$18.00"
@@ -96,7 +96,7 @@
     "tasting_notes": "HAZELNUT / Dark chocolate / toasted almond",
     "variety": "Red Bourbon,catuaí\t",
     "harvest": "2024 harvest",
-    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
+    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
     "sizes": "250g; 500 GRAMS; 1.0 kg",
     "grinds": " wholebean  | FILTER",
     "price_250g": "12,90"
@@ -113,7 +113,7 @@
     "tasting_notes": "Peanut; caramel; COCOA",
     "variety": "catuaí\t",
     "harvest": "2024 crop",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.\r\n\r\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.\r\n\r\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "250 G",
     "grinds": "WHOLE BEAN, Espresso grind\t, pour  over",
     "price_250g": "13.50 USD"
@@ -130,7 +130,7 @@
     "tasting_notes": "cocoa,WALNUT,Orange peel",
     "variety": "BOURBON,  Caturra , catuai",
     "harvest": "2025",
-    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
+    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
     "sizes": "0.25 kg | 1kg",
     "grinds": "Whole beans\t / fine /  Medium grind  / french press",
     "price_250g": "14.90"
@@ -147,7 +147,7 @@
     "tasting_notes": "PLUM | Panela | lime",
     "variety": " Caturra  / yellow bourbon",
     "harvest": "Crop 2025",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250 gr, 0.5kg, 1 KG",
     "grinds": "beans",
     "price_250g": "$16.50"
@@ -164,7 +164,7 @@
     "tasting_notes": "Honey, apricot, ALMOND",
     "variety": "caturra; Catuaí\t",
     "harvest": "2025 harvest",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.<br><br>Works well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.<br><br>Works well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "8.8 oz",
     "grinds": " Wholebean  & filter",
     "price_250g": "16,00"
@@ -181,7 +181,7 @@
     "tasting_notes": "red grape / HIBISCUS / Cane sugar",
     "variety": "Bourbon\t",
     "harvest": "2025 crop",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250g; 1.0 kg",
     "grinds": "whole bean,FINE\t,Pour  over",
     "price_250g": "15.90 USD"
@@ -198,7 +198,7 @@
     "tasting_notes": "MILK CHOCOLATE; Pear; hazelnut",
     "variety": "catuai, CATURRA ",
     "harvest": "2024",
-    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
+    "brew_guide": "<p>Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.</p><p>Works well in a batch brewer; use a medium grind and rinse the paper filter first.</p>",
     "sizes": "250 G,500g,1000 g",
     "grinds": "WHOLE BEANS\t | Espresso |  medium grind  | French press",
     "price_250g": "13.90"
@@ -215,7 +215,7 @@
     "tasting_notes": "Almond,milk chocolate,LEMON",
     "variety": " TIPICA  | Bourbon | caturra\t",
     "harvest": "Crop 2024",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "0.25 kg",
     "grinds": "Beans",
     "price_250g": "$14.20"
@@ -232,7 +232,7 @@
     "tasting_notes": "cedar | DARK CHOCOLATE | Tobacco",
     "variety": "Typica",
     "harvest": "2024 harvest",
-    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
+    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
     "sizes": "250 gr, 1 KG",
     "grinds": " wholebean  / Filter",
     "price_250g": "13,20"
@@ -249,7 +249,7 @@
     "tasting_notes": "DARK CHOCOLATE, Spice, earth",
     "variety": "tipica\t / Catuai",
     "harvest": "2024 crop",
-    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.\r\n\r\nFor milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
+    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.\r\n\r\nFor milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
     "sizes": "8.8 oz / 17.6 oz / 1kg",
     "grinds": "Whole bean; espresso\t; POUR  OVER",
     "price_250g": "13.80 USD"
@@ -266,7 +266,7 @@
     "tasting_notes": "Tropical fruit / wine / CANDIED LEMON",
     "variety": "Landrace",
     "harvest": "2025",
-    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
+    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
     "sizes": "250g",
     "grinds": "whole beans\t & ESPRESSO  GRIND &  Medium grind  & french press",
     "price_250g": "24.00"
@@ -283,7 +283,7 @@
     "tasting_notes": "pineapple; RUM; Honey",
     "variety": " caturra ",
     "harvest": "Crop 2025",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\n\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250 G,1000 g",
     "grinds": "BEANS",
     "price_250g": "$22.00"
@@ -300,7 +300,7 @@
     "tasting_notes": "JASMINE,Mandarin,tea rose",
     "variety": "GEISHA",
     "harvest": "2025 harvest",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "0.25 kg | 500 GRAMS | 1.0 kg",
     "grinds": " Wholebean  | filter",
     "price_250g": "38,00"
@@ -317,7 +317,7 @@
     "tasting_notes": "Brown sugar | cocoa | CHERRY",
     "variety": "Caturra\t | castillo",
     "harvest": "2025 crop",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.\r\n\r\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.\r\n\r\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "250 gr",
     "grinds": "whole bean, Espresso grind\t, pour  over",
     "price_250g": "15.50 USD"
@@ -334,7 +334,7 @@
     "tasting_notes": "dark chocolate, NUTS, Caramel",
     "variety": "bourbon",
     "harvest": "2024",
-    "brew_guide": "<p>Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.</p><p>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.</p>",
+    "brew_guide": "<p>Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.</p><p>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.</p>",
     "sizes": "8.8 oz / 1kg",
     "grinds": "Whole beans\t / fine /  MEDIUM GRIND  / French press",
     "price_250g": "14.50"
@@ -351,7 +351,7 @@
     "tasting_notes": "TOFFEE / Apple / cocoa",
     "variety": " Catuaí ",
     "harvest": "Crop 2024",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "250g; 0.5kg; 1 KG",
     "grinds": "beans",
     "price_250g": "$15.00"
@@ -368,7 +368,7 @@
     "tasting_notes": "Dark chocolate; caramel; HAZELNUT",
     "variety": "yellow bourbon; CATURRA\t; Catuai",
     "harvest": "2025 harvest",
-    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
+    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.<br><br>For milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
     "sizes": "250 G",
     "grinds": " WHOLEBEAN  & Espresso grind & drip\t & Coarse",
     "price_250g": "13,50"
@@ -385,7 +385,7 @@
     "tasting_notes": "berry,COCOA,Brown sugar",
     "variety": "BOURBON\t & Ethiopian  Heirloom",
     "harvest": "2025 crop",
-    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 C.\r\n\r\nFor milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
+    "brew_guide": "Espresso: 18 g in, 36 g out in 28 to 30 seconds at 93 °C.\r\n\r\nFor milk drinks keep the ratio at 1:2 and grind slightly coarser than for a light roast.",
     "sizes": "0.25 kg | 1.0 kg",
     "grinds": "Whole bean,fine\t,Pour  over, cafetiere ",
     "price_250g": "14.50 USD"
@@ -402,7 +402,7 @@
     "tasting_notes": "RED APPLE | Blackcurrant | caramel",
     "variety": "Caturra, sl 28 ",
     "harvest": "2025",
-    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
+    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
     "sizes": "250 gr, 500g, 1000 g",
     "grinds": "whole beans\t | Espresso |  medium grind  | FRENCH PRESS",
     "price_250g": "14.00"
@@ -419,7 +419,7 @@
     "tasting_notes": "Milk chocolate, almond, ORANGE",
     "variety": " yellow bourbon  | Caturra",
     "harvest": "Crop 2025",
-    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
+    "brew_guide": "Filter: 16 g coffee to 250 g water at 92 °C, total time about 3 minutes 30 seconds.\n\nWorks well in a batch brewer; use a medium grind and rinse the paper filter first.",
     "sizes": "8.8 oz",
     "grinds": "Beans",
     "price_250g": "$12.50"
@@ -436,7 +436,7 @@
     "tasting_notes": "honey / PEACH / Vanilla",
     "variety": "Pacamara",
     "harvest": "2025 harvest",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.<br><br>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250g; 1 KG",
     "grinds": " wholebean  / FILTER",
     "price_250g": "17,50"
@@ -453,7 +453,7 @@
     "tasting_notes": "RASPBERRY; Rose; brown sugar",
     "variety": "red bourbon\t",
     "harvest": "2025 crop",
-    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
+    "brew_guide": "Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.\r\n\r\nLight roasts reward a slightly finer grind and a longer bloom of 40 seconds.",
     "sizes": "250 G,17.6 oz,1kg",
     "grinds": "WHOLE BEAN; Espresso\t; pour  over",
     "price_250g": "19.00 USD"
@@ -470,7 +470,7 @@
     "tasting_notes": "Tomato,blackcurrant,GRAPEFRUIT",
     "variety": "SL28;  SL 34 ",
     "harvest": "2025",
-    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
+    "brew_guide": "<p>Pour over: 15 g coffee to 250 g water at 94 °C, total time about 3 minutes.</p><p>Light roasts reward a slightly finer grind and a longer bloom of 40 seconds.</p>",
     "sizes": "0.25 kg",
     "grinds": "Whole beans\t & espresso  grind &  Medium grind  & french press",
     "price_250g": "20.00"

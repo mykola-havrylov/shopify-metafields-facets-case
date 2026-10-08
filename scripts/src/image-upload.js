@@ -1,9 +1,11 @@
 // Idempotent upload of the product images in data/images/ and attaching them to the products.
 // Flow per product: stagedUploadsCreate -> PUT the bytes -> productUpdate with the staged resource as media.
-// A product that already has an image with the expected alt text is left alone; --replace deletes and re-uploads.
+// A product that already has an image with the expected alt text is left alone. With --replace the new image is
+// uploaded and processed first, and the old images are deleted only once the new one is READY.
 import { extname } from 'node:path';
 import { IMAGE_EXTENSIONS } from './images.js';
 import { imageAlt } from './image-prompts.js';
+import { assertNoUserErrors } from './user-errors.js';
 
 const PRODUCT_MEDIA = `#graphql
   query ProductMedia($handle: String!) {
@@ -53,14 +55,6 @@ const DELETE_FILES = `#graphql
   }
 `;
 
-function assertNoUserErrors(action, userErrors) {
-  if (userErrors.length > 0) {
-    throw new Error(
-      `${action} failed: ${userErrors.map(({ field, message }) => `${(field ?? []).join('.')}: ${message}`).join('; ')}`,
-    );
-  }
-}
-
 const images = (product) => product.media.nodes.filter(({ mediaContentType }) => mediaContentType === 'IMAGE');
 
 /** Sends the file to the staged target. Returned parameters are sent as headers, as the PUT upload requires. */
@@ -71,16 +65,21 @@ async function putToStagedTarget(fetchImpl, target, bytes) {
     throw new Error(`Staged upload failed with HTTP ${response.status}: ${(await response.text()).slice(0, 300)}`);
 }
 
-async function waitUntilReady(client, handle, alt, { sleep, attempts, delayMs }) {
+/** Polls until the media added by this upload (not one of `knownIds`) is READY, FAILED, or the attempts run out. */
+async function waitForNewImage(client, handle, { alt, knownIds, sleep, attempts, delayMs }) {
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const { productByIdentifier } = await client.graphql(PRODUCT_MEDIA, { handle });
-    const media = images(productByIdentifier).find((item) => item.alt === alt);
-    if (media?.status === 'READY') return true;
-    if (media?.status === 'FAILED')
-      throw new Error(`Shopify could not process the image of "${handle}" (status FAILED).`);
+    const added = images(productByIdentifier).find((media) => media.alt === alt && !knownIds.has(media.id));
+    if (added?.status === 'READY') return 'READY';
+    if (added?.status === 'FAILED') return 'FAILED';
     if (attempt < attempts) await sleep(delayMs);
   }
-  return false;
+  return 'PENDING';
+}
+
+async function deleteImages(client, handle, media) {
+  const { fileDelete } = await client.graphql(DELETE_FILES, { fileIds: media.map(({ id }) => id) });
+  assertNoUserErrors(`Deleting the old images of "${handle}"`, fileDelete.userErrors);
 }
 
 /**
@@ -89,7 +88,7 @@ async function waitUntilReady(client, handle, alt, { sleep, attempts, delayMs })
  * @param {(filename: string) => Promise<Buffer>} options.readImage
  * @param {(product: object) => string} options.roasterTitleOf
  * @returns {Promise<{results: Array<{handle: string, status: string, note?: string}>}>}
- *   statuses: uploaded, replaced, unchanged, would-upload, would-replace, conflict, missing-product, processing
+ *   statuses: uploaded, replaced, unchanged, would-upload, would-replace, conflict, missing-product, processing, failed
  */
 export async function uploadProductImages({
   client,
@@ -115,9 +114,12 @@ export async function uploadProductImages({
 
     const alt = imageAlt(product, roasterTitleOf(product));
     const current = images(existing);
-    // A FAILED image is never worth keeping; it is removed and uploaded again without --replace.
+    // A FAILED image is never worth keeping: it is removed before the upload, with or without --replace.
+    const failed = current.filter(({ status }) => status === 'FAILED');
     const usable = current.filter(({ status }) => status !== 'FAILED');
-    const toDelete = replace ? current : current.filter(({ status }) => status === 'FAILED');
+    // With --replace the usable images are removed too, but only after the new image is READY.
+    const toReplace = replace ? usable : [];
+
     if (!replace && usable.some((media) => media.alt === alt)) {
       results.push({ handle, status: 'unchanged' });
       continue;
@@ -130,15 +132,14 @@ export async function uploadProductImages({
       });
       continue;
     }
+
+    const replacing = failed.length + toReplace.length > 0;
     if (dryRun) {
-      results.push({ handle, status: toDelete.length > 0 ? 'would-replace' : 'would-upload' });
+      results.push({ handle, status: replacing ? 'would-replace' : 'would-upload' });
       continue;
     }
 
-    if (toDelete.length > 0) {
-      const { fileDelete } = await client.graphql(DELETE_FILES, { fileIds: toDelete.map(({ id }) => id) });
-      assertNoUserErrors(`Deleting the old images of "${handle}"`, fileDelete.userErrors);
-    }
+    if (failed.length > 0) await deleteImages(client, handle, failed);
 
     const bytes = await readImage(filename);
     const mimeType = IMAGE_EXTENSIONS[extname(filename).toLowerCase()];
@@ -155,13 +156,23 @@ export async function uploadProductImages({
     });
     assertNoUserErrors(`Attaching the image to "${handle}"`, productUpdate.userErrors);
 
-    const ready = await waitUntilReady(client, handle, alt, { sleep, attempts, delayMs });
-    const status = ready ? (toDelete.length > 0 ? 'replaced' : 'uploaded') : 'processing';
-    results.push({
-      handle,
-      status,
-      ...(ready ? {} : { note: 'still processing at Shopify; npm run verify checks it later' }),
-    });
+    const knownIds = new Set(usable.map(({ id }) => id));
+    const state = await waitForNewImage(client, handle, { alt, knownIds, sleep, attempts, delayMs });
+    if (state !== 'READY') {
+      const kept = toReplace.length > 0 ? '; the previous image(s) were kept' : '';
+      results.push({
+        handle,
+        status: state === 'FAILED' ? 'failed' : 'processing',
+        note:
+          state === 'FAILED'
+            ? `Shopify could not process the new image${kept}; the next run removes it and uploads again`
+            : `still processing at Shopify${kept}; npm run verify checks it later`,
+      });
+      continue;
+    }
+
+    if (toReplace.length > 0) await deleteImages(client, handle, toReplace);
+    results.push({ handle, status: replacing ? 'replaced' : 'uploaded' });
   }
 
   return { results };

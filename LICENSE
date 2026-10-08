@@ -2,17 +2,6 @@ MIT License
 
 Copyright (c) 2026 Mykola Havrylov
 
-This license covers only the original additions in this repository: the
-contents of `scripts/`, `tests/`, `data/`, `docs/`, the CI/tooling configuration,
-and any theme files created or modified by the author after the Dawn import.
-
-It does NOT cover the code and assets derived from Dawn
-(Copyright (c) 2021-present Shopify Inc.), which remain under the terms of
-`LICENSE.md`. In particular, Dawn's license only permits use to develop themes
-that integrate or interoperate with Shopify software or services. Any file
-that originates from Dawn, including after modification, stays subject to
-that restriction.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

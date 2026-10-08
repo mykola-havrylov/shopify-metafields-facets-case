@@ -6,6 +6,7 @@ import {
   SIZE_PRICE_FACTORS,
   buildMetafields,
   buildProductSetInput,
+  fetchMetaobjectIds,
   pilotProducts,
   richTextFromParagraphs,
   seedCatalog,
@@ -138,6 +139,20 @@ describe('pilot batch', () => {
 
   it('fails when a pilot handle is missing from the catalog', () => {
     assert.throws(() => pilotProducts(catalog.slice(1)), /Pilot product/);
+  });
+});
+
+describe('fetchMetaobjectIds', () => {
+  it('reads every entry across pages', async () => {
+    const { client, state } = fakeShopify(dictionaries);
+    state.metaobjectPageSize = 2;
+
+    const ids = await fetchMetaobjectIds(client, 'roaster');
+    assert.equal(ids.size, dictionaries.roasters.length);
+    assert.deepEqual(
+      [...ids.keys()],
+      dictionaries.roasters.map(({ handle }) => handle),
+    );
   });
 });
 

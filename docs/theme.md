@@ -1,6 +1,6 @@
 # Theme presentation
 
-The theme is [Dawn](https://github.com/Shopify/dawn) `v16.0.0` (see [third-party-assets.md](third-party-assets.md)). Everything below is what this repository adds on top of it. Dawn files are only touched where wiring requires it: `templates/product.json`, `config/settings_schema.json` and the two locale files.
+The theme is [Dawn](https://github.com/Shopify/dawn) `v16.0.0` (see [third-party-assets.md](third-party-assets.md)). Everything below is what this repository adds on top of it. The Dawn files that were changed are listed in [third-party-assets.md](third-party-assets.md#changes-to-dawn-files).
 
 ## What was added
 
@@ -22,7 +22,7 @@ The section sits right after the main product section in `templates/product.json
 
 ## Roaster page
 
-`templates/metaobject/<type>.json` is the template Shopify uses for metaobject pages of that type. The section shows the name, country, founding year, description and, when a logo exists, the logo. Below it, the coffees of this roaster: products of a collection (default handle `coffee`, configurable) whose `coffee.roaster` reference points at this entry, rendered with Dawn's `card-product`. The block is hidden when there are none.
+`templates/metaobject/<type>.json` is the template Shopify uses for metaobject pages of that type. The section shows the name, country, founding year, description and, when a logo exists, the logo. Below it, the coffees of this roaster: products of a collection (default handle `coffee`, configurable) whose `coffee.roaster` reference points at this entry, rendered with Dawn's `card-product`. The block is hidden when there are none. The grid reads `collection.products` without pagination, so it sees a single page of at most 50 products ([`paginate`](https://shopify.dev/docs/api/liquid/objects/collection) caps a page at 50). Under it a link, "All coffees from <roaster>", opens the source collection filtered by this roaster (`?filter.p.m.coffee.roaster=gid://shopify/Metaobject/<id>`, URL-encoded); that filtered collection is the complete list. The id comes from [`metaobject.system.id`](https://shopify.dev/docs/api/liquid/objects/metaobject_system), which is the number in the metaobject's global id.
 
 ## Design tokens
 
@@ -55,7 +55,4 @@ All visible text is in `locales/en.default.json` (`coffee.*`) and the editor lab
 ## Checks
 
 - Theme Check: 0 errors; no new warnings from these files.
-- Shopify's theme validator accepts every added file.
 - Browser QA against `shopify theme dev` (3 product pages, 2 roaster pages; 375, 768 and 1280 px): no horizontal overflow, spec rows stack below 750px, one `h1` with ordered headings, decorative swatch and roast bar are `aria-hidden` with the text equivalents present, the roaster link and card links take keyboard focus with a visible indicator, switching variants leaves the section intact, no console errors from the theme code.
-- Not covered by that run: numeric contrast of the focus ring and the roast scale, header tab order, a screen reader pass, and a visual review of the roaster page layout at 375 and 768px.
-- Still manual: a check on a real phone and with enlarged text.

@@ -13,7 +13,7 @@ The seven filters are enabled by hand; the theme only renders what the app retur
 
 ## URLs
 
-Every state is a URL: `/collections/coffee?filter.p.m.coffee.roast_level=Light&filter.p.m.coffee.decaf=false`. Per the [storefront filtering docs](https://shopify.dev/docs/storefronts/themes/navigation-search/filtering/storefront-filtering), filters are combined with AND and several values of one filter with OR, either as repeated parameters or comma separated. A metaobject reference filter (`coffee.roaster`, `coffee.process`) takes the entry's global id (`gid://shopify/Metaobject/...`) as its value. A shared URL reproduces the state, and the browser Back button restores the previous one (`popstate` in `facets.js`).
+Every state is a URL: `/collections/coffee?filter.p.m.coffee.roast_level=Light&filter.p.m.coffee.decaf=0`. Per the [storefront filtering docs](https://shopify.dev/docs/storefronts/themes/navigation-search/filtering/storefront-filtering), filters are combined with AND and several values of one filter with OR, either as repeated parameters or comma separated. A metaobject reference filter (`coffee.roaster`, `coffee.process`) takes the entry's global id (`gid://shopify/Metaobject/...`) as its value. A shared URL reproduces the state, and the browser Back button restores the previous one (`popstate` in `facets.js`).
 
 Observed on the live theme (browser QA, 2026-10-07):
 

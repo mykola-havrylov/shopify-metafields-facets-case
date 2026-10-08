@@ -141,7 +141,6 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderSection(html, event, updateEvent, inputVersion);
   }
 
-
   static focusResultCount() {
     const visibleCount = ['ProductCountDesktop', 'ProductCount']
       .map((id) => document.getElementById(id))
