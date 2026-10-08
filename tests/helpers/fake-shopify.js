@@ -47,9 +47,17 @@ export function fakeShopify({ roasters, processMethods }) {
   let nextId = 1;
 
   const operations = {
-    MetaobjectIds: ({ type }) => ({
-      metaobjects: { nodes: [...state.metaobjects[type]].map(([handle, id]) => ({ id, handle })) },
-    }),
+    MetaobjectIds: ({ type, after }) => {
+      const all = [...state.metaobjects[type]].map(([handle, id]) => ({ id, handle }));
+      const from = after ? Number(after) : 0;
+      const to = from + (state.metaobjectPageSize ?? 100);
+      return {
+        metaobjects: {
+          nodes: all.slice(from, to),
+          pageInfo: { hasNextPage: to < all.length, endCursor: String(to) },
+        },
+      };
+    },
     OnlineStorePublication: () => ({
       publications: {
         nodes: [

@@ -20,6 +20,7 @@ function fakeStore({ products = catalog, readyAfterPolls = 1 } = {}) {
     puts: [],
     polls: 0,
     stagedErrors: [],
+    failNew: false,
   };
   let nextMedia = 1;
 
@@ -62,7 +63,7 @@ function fakeStore({ products = catalog, readyAfterPolls = 1 } = {}) {
             id: `gid://shopify/MediaImage/${nextMedia++}`,
             alt: media.alt,
             mediaContentType: 'IMAGE',
-            status: 'PROCESSING',
+            status: state.failNew ? 'FAILED' : 'PROCESSING',
             readyAt: state.polls + readyAfterPolls,
             source: media.originalSource,
           });
@@ -175,8 +176,59 @@ describe('uploadProductImages', () => {
     const { results } = await run(store, { replace: true });
     assert.equal(results[0].status, 'replaced');
     assert.deepEqual(store.state.deleted.slice(0, 1), ['gid://shopify/MediaImage/900']);
+    const { calls } = store.state;
+    const attached = calls.indexOf('AttachMedia');
+    const deletion = calls.indexOf('DeleteFiles');
+    assert.ok(attached >= 0 && deletion > attached, 'the old image is deleted after the new one is attached');
+    assert.ok(calls.slice(attached, deletion).includes('ProductMedia'), 'and after waiting for the new one');
     const alts = store.state.products.get(catalog[0].handle).media.map(({ alt }) => alt);
     assert.deepEqual(alts, [imageAlt(catalog[0], 'Some Roaster')]);
+  });
+
+  it('--replace keeps the old image while the new one is still processing', async () => {
+    const store = fakeStore({ readyAfterPolls: 100 });
+    store.state.products.get(catalog[0].handle).media.push({
+      id: 'gid://shopify/MediaImage/900',
+      alt: 'Manual photo',
+      mediaContentType: 'IMAGE',
+      status: 'READY',
+    });
+
+    const { results } = await run(store, { matches: matches.slice(0, 1), replace: true, attempts: 3 });
+    assert.equal(results[0].status, 'processing');
+    assert.match(results[0].note, /previous image\(s\) were kept/);
+    assert.deepEqual(store.state.deleted, []);
+    assert.ok(store.state.products.get(catalog[0].handle).media.some(({ id }) => id.endsWith('/900')));
+  });
+
+  it('--replace keeps the old image when the new one fails, and reports it', async () => {
+    const store = fakeStore();
+    store.state.failNew = true;
+    store.state.products.get(catalog[0].handle).media.push({
+      id: 'gid://shopify/MediaImage/900',
+      alt: 'Manual photo',
+      mediaContentType: 'IMAGE',
+      status: 'READY',
+    });
+
+    const { results } = await run(store, { matches: matches.slice(0, 1), replace: true });
+    assert.equal(results[0].status, 'failed');
+    assert.match(results[0].note, /could not process the new image; the previous image\(s\) were kept/);
+    assert.deepEqual(store.state.deleted, []);
+  });
+
+  it('does not mistake an old image with the same alt text for the new one', async () => {
+    const store = fakeStore({ readyAfterPolls: 100 });
+    store.state.products.get(catalog[0].handle).media.push({
+      id: 'gid://shopify/MediaImage/900',
+      alt: imageAlt(catalog[0], 'Some Roaster'),
+      mediaContentType: 'IMAGE',
+      status: 'READY',
+    });
+
+    const { results } = await run(store, { matches: matches.slice(0, 1), replace: true, attempts: 3 });
+    assert.equal(results[0].status, 'processing');
+    assert.deepEqual(store.state.deleted, []);
   });
 
   it('uploads again over a FAILED image without --replace, and reports a missing product', async () => {

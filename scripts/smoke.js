@@ -1,13 +1,9 @@
 // Smoke test: obtains a token via client credentials and runs `shop { name }`.
 // Usage: npm run smoke   (reads SHOPIFY_* from .env or the process environment)
 import { API_VERSION, createClient, loadConfig } from './src/client.js';
+import { loadEnv } from './src/env.js';
 
-try {
-  process.loadEnvFile('.env');
-} catch (error) {
-  // No .env is fine when variables come from the process environment.
-  if (error.code !== 'ENOENT') throw error;
-}
+loadEnv();
 
 try {
   const config = loadConfig();

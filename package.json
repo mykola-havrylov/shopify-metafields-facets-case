@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Dawn fork proving native metafields/metaobjects + Search & Discovery facets can replace a paid app.",
+  "description": "Dawn-based Shopify theme and Admin API scripts: coffee catalog modeled with metafields and metaobjects, filtered with Search & Discovery.",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=22"

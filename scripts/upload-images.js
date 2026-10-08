@@ -10,17 +10,13 @@ import { API_VERSION, createClient, loadConfig } from './src/client.js';
 import { loadDictionaryFiles } from './src/dictionaries.js';
 import { listImageFiles, planImages, validateImage } from './src/images.js';
 import { uploadProductImages } from './src/image-upload.js';
+import { loadEnv } from './src/env.js';
 
 const dryRun = process.argv.includes('--dry-run');
 const replace = process.argv.includes('--replace');
 const pilot = process.argv.includes('--pilot');
 
-try {
-  process.loadEnvFile('.env');
-} catch (error) {
-  // No .env is fine when variables come from the process environment.
-  if (error.code !== 'ENOENT') throw error;
-}
+loadEnv();
 
 try {
   const config = loadConfig();
@@ -50,7 +46,8 @@ try {
 
   for (const { handle, status, note } of results)
     console.log(`${status.toUpperCase().padEnd(16)} ${handle}${note ? `  (${note})` : ''}`);
-  if (results.some(({ status }) => status === 'conflict' || status === 'missing-product')) process.exitCode = 1;
+  if (results.some(({ status }) => status === 'conflict' || status === 'missing-product' || status === 'failed'))
+    process.exitCode = 1;
 } catch (error) {
   console.error(`FAILED: ${error.message}`);
   process.exitCode = 1;

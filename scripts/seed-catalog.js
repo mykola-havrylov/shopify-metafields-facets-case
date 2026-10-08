@@ -9,16 +9,12 @@ import { loadDefinitionFiles } from './src/definitions.js';
 import { loadDictionaries, loadDictionaryFiles } from './src/dictionaries.js';
 import { normalizeCatalogOrThrow } from './src/normalize.js';
 import { readFile } from 'node:fs/promises';
+import { loadEnv } from './src/env.js';
 
 const dryRun = process.argv.includes('--dry-run');
 const pilot = process.argv.includes('--pilot');
 
-try {
-  process.loadEnvFile('.env');
-} catch (error) {
-  // No .env is fine when variables come from the process environment.
-  if (error.code !== 'ENOENT') throw error;
-}
+loadEnv();
 
 try {
   const config = loadConfig();

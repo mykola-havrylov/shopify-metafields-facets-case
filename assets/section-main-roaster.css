@@ -44,3 +44,7 @@
 .coffee-roaster__products > h2 {
   margin: 0 0 2rem;
 }
+
+.coffee-roaster__all {
+  margin: 2rem 0 0;
+}

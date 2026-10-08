@@ -7,6 +7,7 @@ import {
   diffMetafieldDefinition,
   diffMetaobjectDefinition,
 } from './definitions.js';
+import { assertNoUserErrors } from './user-errors.js';
 
 const METAOBJECT_DEFINITION_BY_TYPE = `#graphql
   query MetaobjectDefinitionByType($type: String!) {
@@ -66,13 +67,6 @@ const CREATE_METAFIELD_DEFINITION = `#graphql
     }
   }
 `;
-
-function assertNoUserErrors(action, userErrors) {
-  if (userErrors.length > 0) {
-    const details = userErrors.map(({ field, message, code }) => `${(field ?? []).join('.')}: ${message} (${code})`);
-    throw new Error(`${action} failed: ${details.join('; ')}`);
-  }
-}
 
 async function fetchExistingMetafieldDefinitions(client, namespace) {
   const found = new Map();
